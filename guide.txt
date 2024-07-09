@@ -2,4 +2,17 @@
 
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-windows-x86_64.zip
 
-### ###
+### Data injestion ###
+
+Put json file in the corpus folder and run injest.py
+after the json will be sent in Traité
+
+Json format:
+
+"context": "",
+        "metadata": {
+            "Titre": "",
+            "version": "",
+            "Lien": "",
+            "date-vectorisation": ""
+        }
