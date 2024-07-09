@@ -1,0 +1,5 @@
+### Install elastic ###
+
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-windows-x86_64.zip
+
+### ###
