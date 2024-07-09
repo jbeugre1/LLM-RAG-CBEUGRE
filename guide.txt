@@ -2,6 +2,10 @@
 
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-windows-x86_64.zip
 
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-windows-x86_64.zip
+
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-linux-x86_64.tar.gz
+
 ### Data injestion ###
 
 Put json file in the corpus folder and run injest.py
