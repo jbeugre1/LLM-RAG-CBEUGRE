@@ -3,11 +3,20 @@ import json
 import pandas as pd
 import os
 from sentence_transformers import SentenceTransformer
+from index import mymapping
 
 es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","elastic"),verify_certs=False)
 
 listdir = os.listdir("./Corpus")
 print(listdir)
+
+
+
+try:
+    es.indices.create(index="corpus",mappings=mymapping)
+except Exception:
+    print("Index already exist")
+
 
 
 for x in listdir:

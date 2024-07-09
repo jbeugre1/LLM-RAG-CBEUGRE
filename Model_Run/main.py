@@ -1,6 +1,6 @@
 from langchain_community.llms import Ollama
 from langchain_community.chat_models import ChatOllama
-from qdrant_client import QdrantClient
+#from qdrant_client import QdrantClient
 #from langchain.vectorstores import Qdrant
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
@@ -9,7 +9,7 @@ from langchain.schema.runnable import RunnablePassthrough
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 from langchain.chains import LLMChain
-from prompt import chain_type_kwargs
+#from prompt import chain_type_kwargs
 from elasticsearch import Elasticsearch
 from sentence_transformers import SentenceTransformer
 
@@ -76,10 +76,10 @@ class Chat:
     def ask(self, query: str):
         
         vec_querry = model.encode(query)
-        count_index = es.count(index="corpus_v2test")["count"]
+        count_index = es.count(index="corpus")["count"]
         query_search = {"field":"context_vector", "query_vector":vec_querry,"k":3,"num_candidates":count_index}
         
-        result = es.knn_search(index="corpus_v2test",knn=query_search,source=["context","Titre","Lien"])
+        result = es.knn_search(index="corpus",knn=query_search,source=["context","Titre","Lien"])
         context = ""
         for x in result["hits"]["hits"]:
             
