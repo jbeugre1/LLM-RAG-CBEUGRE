@@ -2,6 +2,7 @@ from elasticsearch import Elasticsearch
 import json
 import pandas as pd
 import os
+import shutil
 from sentence_transformers import SentenceTransformer
 from index import mymapping
 
@@ -9,7 +10,6 @@ es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","elastic"),ve
 
 listdir = os.listdir("./Corpus")
 print(listdir)
-
 
 
 try:
@@ -21,11 +21,12 @@ except Exception:
 
 for x in listdir:
     path = "./Corpus/"+x
+    insert_path = "./Corpus/Traité/"+x
     if os.path.isfile(path):
         print(path)
     
 
-        with open(listdir, 'r') as file:
+        with open(path, 'r') as file:
             data = json.load(file)
             df = pd.DataFrame(data)
             
@@ -42,6 +43,9 @@ for x in listdir:
 
         for x in record_list:
             es.index(index="corpus_v2test",document=x)
+            
+            
+        shutil.move(path, insert_path)
 
 
 
