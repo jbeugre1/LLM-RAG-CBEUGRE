@@ -20,13 +20,13 @@ except Exception:
 
 
 for x in listdir:
-    path = "./Corpus/"+x
+    path_json = "./Corpus/"+x
     insert_path = "./Corpus/Traité/"+x
-    if os.path.isfile(path):
-        print(path)
+    if os.path.isfile(path_json) and path_json != "Corpus/.gitkeep" :
+        print(path_json)
     
 
-        with open(path, 'r') as file:
+        with open(path_json, 'r') as file:
             data = json.load(file)
             df = pd.DataFrame(data)
             
@@ -42,10 +42,10 @@ for x in listdir:
 
 
         for x in record_list:
-            es.index(index="corpus_v2test",document=x)
+            es.index(index="corpus",document=x)
             
             
-        shutil.move(path, insert_path)
+        shutil.move(path_json, insert_path)
 
 
 
