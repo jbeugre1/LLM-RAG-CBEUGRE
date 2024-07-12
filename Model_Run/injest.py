@@ -22,7 +22,7 @@ except Exception:
 for x in listdir:
     path_json = "./Corpus/"+x
     insert_path = "./Corpus/Traité/"+x
-    if os.path.isfile(path_json) and path_json != "Corpus/.gitkeep" :
+    if os.path.isfile(path_json) and ".gitkeep" not in path_json :
         print(path_json)
     
 
