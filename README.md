@@ -1,8 +1,8 @@
 ### Download elastic ###
 
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-windows-x86_64.zip /n
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.3-darwin-x86_64.tar.gz /n
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-linux-x86_64.tar.gz /n
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-windows-x86_64.zip <br>
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.3-darwin-x86_64.tar.gz <br>
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-linux-x86_64.tar.gz <br>
 
 ### Unzip ###
 (Vous maitrisez deja)
