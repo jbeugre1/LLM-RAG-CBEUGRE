@@ -77,7 +77,7 @@ class Chat:
         
         vec_querry = model.encode(query)
         count_index = es.count(index="corpus")["count"]
-        query_search = {"field":"context_vector", "query_vector":vec_querry,"k":3,"num_candidates":count_index}
+        query_search = {"field":"context_vector", "query_vector":vec_querry,"k":5,"num_candidates":count_index}
         
         result = es.knn_search(index="corpus",knn=query_search,source=["context","Titre","Lien"])
         context = ""
@@ -105,9 +105,9 @@ Context/Reponse:
 
 _____________________
 
-Si le contexts/Reponses ne repond pas du tout à la question, excuse toi et dit que l'informateur n'est pas dans ta base de connaissance.
+Si le contexts/Reponses n'a pas d'element de réponse, excuse toi et dit que l'informateur n'est pas dans ta base de connaissance.
 Si le contexts/Reponses n'a pas assez d'element demande à l'utilisateur d'etre plus explisite.
-Si le contexts est coherent pour repondre a la question, reponds en moin de 400 characteres
+Si le contexts est coherent pour repondre a la question, reponds en moin de 500 characteres
 Si un lien suit le contexte le plus pertinent, veuillez le placer à la fin de la réponse.
 S'il ny a pas de titre ou de lien juste après le contexte qui reponds a la question ne met rien a la fin de la réponse.
 Considère aussi le titre du document.
