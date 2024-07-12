@@ -27,7 +27,7 @@ from aiogram.utils.markdown import hbold
 
 # Bot token can be obtained via https://t.me/BotFather  ,nom = @Camer_bot
 TOKEN = "7163174561:AAFOGNdvoaVXQuizTWKMi0Dt8ip3KdkDLBw"
-es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","elastic"),verify_certs=False)
+es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","hgE3g61Bz3LTNaBg2=k="),verify_certs=False)
 bot = Bot(TOKEN, parse_mode=ParseMode.HTML) 
 
 # Load https://huggingface.co/sentence-transformers/all-mpnet-base-v2
