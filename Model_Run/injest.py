@@ -6,7 +6,7 @@ import shutil
 from sentence_transformers import SentenceTransformer
 from index import mymapping
 
-es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","elastic"),verify_certs=False)
+es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","hgE3g61Bz3LTNaBg2=k="),verify_certs=False)
 
 listdir = os.listdir("./Corpus")
 print(listdir)
