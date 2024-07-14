@@ -62,9 +62,8 @@ Injest check if there is json file in the folder "Corpus" and insert them in our
 Main.py run telegram bot and our model LLM
 
 
-### json requirement ###
+### Json format ###
 
-Json format:
 
 "context": "",
         "metadata": {
