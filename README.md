@@ -1,3 +1,16 @@
+LLM RAG (Language Model Retrieval-Augmented Generation) is an advanced AI technique that combines the strengths of large language models (LLMs) with retrieval-based mechanisms to enhance information accuracy and relevance.
+
+In a typical RAG setup, the language model generates responses by not only relying on its pre-trained knowledge but also by dynamically retrieving and integrating information from a vast external database or a curated set of documents. This dual approach allows the system to provide more precise, up-to-date, and contextually appropriate answers, especially in scenarios where the pre-trained model alone might lack specific or recent information.
+
+The key components of LLM RAG include:
+
+	1.	Language Model (LLM): A pre-trained model capable of understanding and generating human-like text based on the input it receives.
+	2.	Retrieval Mechanism: A system that searches and fetches relevant documents or data from an external source based on the input query.
+	3.	Integration Module: A component that seamlessly integrates the retrieved information with the language model’s generated text to produce coherent and accurate responses.
+
+
+
+
 ### Download elastic ###
 
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.14.2-windows-x86_64.zip <br>
