@@ -4,9 +4,9 @@ In a typical RAG setup, the language model generates responses by not only relyi
 
 The key components of LLM RAG include:
 
-	1.	Language Model (LLM): A pre-trained model capable of understanding and generating human-like text based on the input it receives.
-	2.	Retrieval Mechanism: A system that searches and fetches relevant documents or data from an external source based on the input query.
-	3.	Integration Module: A component that seamlessly integrates the retrieved information with the language model’s generated text to produce coherent and accurate responses.
+1.	Language Model (LLM): A pre-trained model capable of understanding and generating human-like text based on the input it receives.
+2.	Retrieval Mechanism: A system that searches and fetches relevant documents or data from an external source based on the input query.
+3.	Integration Module: A component that seamlessly integrates the retrieved information with the language model’s generated text to produce coherent and accurate responses.
 
 
 
