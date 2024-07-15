@@ -65,7 +65,7 @@ class Chat:
 
 
     def __init__(self):
-        self.model = Ollama(model="gemma2")
+        self.model = Ollama(model="llama3")
         self.text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=100)
 
         self.engine = None  # Initialiser engine à None par défaut (gestion des erreurs)
