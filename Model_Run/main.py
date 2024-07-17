@@ -107,7 +107,7 @@ _____________________
 
 Si le contexts/Reponses n'a pas d'element de réponse, excuse toi et dit que l'informateur n'est pas dans ta base de connaissance.
 Si le contexts/Reponses n'a pas assez d'element demande à l'utilisateur d'etre plus explisite.
-Si le contexts est coherent pour repondre a la question, reponds en moin de 500 characteres
+Donne une réponse concise et directe (maximum 4 phrases)
 Si un lien suit le contexte le plus pertinent, veuillez le placer à la fin de la réponse.
 S'il ny a pas de titre ou de lien juste après le contexte qui reponds a la question ne met rien a la fin de la réponse.
 Considère aussi le titre du document.
