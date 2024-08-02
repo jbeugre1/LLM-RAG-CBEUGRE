@@ -21,9 +21,11 @@ import sys
 
 from aiogram import Bot, Dispatcher, Router, types 
 from aiogram.enums import ParseMode 
-from aiogram.filters import CommandStart 
+from aiogram.filters import CommandStart, Command
 from aiogram.types import Message 
 from aiogram.utils.markdown import hbold 
+
+from function import get_direction
 
 # Bot token can be obtained via https://t.me/BotFather  ,nom = @Camer_bot
 TOKEN = "7163174561:AAFOGNdvoaVXQuizTWKMi0Dt8ip3KdkDLBw"
@@ -41,6 +43,16 @@ class Chat:
     @dp.message(CommandStart()) 
     async def command_start_handler(message: Message) -> None: 
         await message.answer(f"Hello, {hbold(message.from_user.full_name)}!") 
+        
+    @dp.message(Command('direction'))
+    async def echo_handler(message: types.Message) -> None:
+        user_message = message.text
+        salle_reunion = user_message.split(" ")
+        if len(salle_reunion) == 3:
+            await message.answer(get_direction(salle_reunion[1],salle_reunion[2]))
+        else:
+            await message.answer("Veuillez respecter le format: \n /direction point_de_depart destination")
+        
 
     @dp.message() 
     async def echo_handler(message: types.Message) -> None: 
@@ -54,7 +66,6 @@ class Chat:
 
         # effacer traitement en cours
         await bot.delete_message(chat_id=message.chat.id, message_id=message_wait.message_id)
-
 
         #afficher dans telegram
         #print(response)
