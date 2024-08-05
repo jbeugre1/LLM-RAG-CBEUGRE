@@ -34,13 +34,13 @@ def get_direction(start_room ,end_room):
 
     # Ajout des salles et connexions pour chaque niveau
     levels = {
-        'RDJ': ['EP', 'Auditorium', 'Comoe', 'Bandama', 'Ascenseur BRDJ', 'Kouroukoule', 'Cavally', 'Ascenseur CRDJ', 'Restaurant', 'Ascenseur DRDJ', 'Salle_de_sport', 'sans_pedro', 'Alepe', 'Soubre', 'Ascenseur ARDJ', 'EP'],
-        '0': ['Acceuil', 'Ascenseur B0', 'Kossou', 'Buyo', 'Niari', 'Ascenseur C0', 'Toumodi', 'goal24', 'Ascenseur D0', 'Bongouanou', 'Dimbokro', 'Tiassale', 'Ascenseur A0', 'Acceuil'],
-        '1': ['Ganoa', 'Ascenseur B1', 'Daloa', 'Vavoua', 'Ascenseur C1', 'Bondoukou', 'Man', 'Ascenseur D1', 'Bouake', 'Danane', 'Zuenola', 'Ascenseur A1', 'Yamoussoukro', 'Ganoa'],
-        '2': ['Katiola', 'Ascenseur B2', 'Tanda', 'Mankono', 'Ascenseur C2', 'Kani', 'Seguela', 'Ascenseur D2', 'Bassawa', 'Nassian', 'Bouna', 'Ascenseur A2', 'Worofla', 'Katiola'],
-        '3': ['Ascenseur B3', 'Gan', 'Bako', 'Ascenseur C3', 'Noungang', 'Borotou', 'Ascenseur D3', 'Kanakono', 'Tienko', 'Minignan', 'Ascenseur A3', 'Espace_repo', 'Ascenseur B3'],
-        '4': ['Espace_repo1', 'PCA', 'Ascenseur B4', 'Ascenseur C4', 'Korhogo', 'Boundiali', 'Ascenseur D4', 'salle', 'Niélé', 'Espace_repo2'],
-        '5': ['Espace_repo1', 'Teheni', 'Ascenseur B5', 'Tengrela', 'Ascenseur D5', 'Kouto', 'Espace_repo2']
+        'RDJ': ['Entree principal', 'Auditorium', 'Comoe', 'Bandama', 'Ascenseur B_RDJ', 'Kouroukoule', 'Cavally', 'Ascenseur C_RDJ', 'Restaurant', 'Ascenseur D_RDJ', 'Salle_de_sport', 'sans_pedro', 'Alepe', 'Soubre', 'Ascenseur A_RDJ', 'EP'],
+        '0': ['Acceuil', 'Ascenseur B_0', 'Kossou', 'Buyo', 'Niari', 'Ascenseur C_0', 'Toumodi', 'goal24', 'Ascenseur D_0', 'Bongouanou', 'Dimbokro', 'Tiassale', 'Ascenseur A_0', 'Acceuil'],
+        '1': ['Ganoa', 'Ascenseur B_1', 'Daloa', 'Vavoua', 'Ascenseur C_1', 'Bondoukou', 'Man', 'Ascenseur D_1', 'Bouake', 'Danane', 'Zuenola', 'Ascenseur A_1', 'Yamoussoukro', 'Ganoa'],
+        '2': ['Katiola', 'Ascenseur B_2', 'Tanda', 'Mankono', 'Ascenseur C_2', 'Kani', 'Seguela', 'Ascenseur D_2', 'Bassawa', 'Nassian', 'Bouna', 'Ascenseur A_2', 'Worofla', 'Katiola'],
+        '3': ['Ascenseur B_3', 'Gan', 'Bako', 'Ascenseur C_3', 'Noungang', 'Borotou', 'Ascenseur D_3', 'Kanakono', 'Tienko', 'Minignan', 'Ascenseur A_3', 'Espace_repo', 'Ascenseur B_3'],
+        '4': ['Espace_repo1', 'PCA', 'Ascenseur B_4', 'Ascenseur C_4', 'Korhogo', 'Boundiali', 'Ascenseur D_4', 'salle', 'Niélé', 'Espace_repo2'],
+        '5': ['Espace_repo1', 'Teheni', 'Ascenseur B_5', 'Tengrela', 'Ascenseur D_5', 'Kouto', 'Espace_repo2']
     }
 
     for level, rooms in levels.items():
@@ -48,10 +48,10 @@ def get_direction(start_room ,end_room):
 
     # Ajout des connexions verticales (ascenseurs)
     vertical_connections = [
-        ('Ascenseur CRDJ', 'Ascenseur C0', 'Ascenseur C1', 'Ascenseur C2', 'Ascenseur C3', 'Ascenseur C4'),
-        ('Ascenseur BRDJ', 'Ascenseur B0', 'Ascenseur B1', 'Ascenseur B2', 'Ascenseur B3', 'Ascenseur B4', 'Ascenseur B5'),
-        ('Ascenseur DRDJ', 'Ascenseur D0', 'Ascenseur D1', 'Ascenseur D2', 'Ascenseur D3', 'Ascenseur D4', 'Ascenseur D5'),
-        ('Ascenseur ARDJ', 'Ascenseur A0', 'Ascenseur A1', 'Ascenseur A2', 'Ascenseur A3')
+        ('Ascenseur C_RDJ', 'Ascenseur C_0', 'Ascenseur C_1', 'Ascenseur C_2', 'Ascenseur C_3', 'Ascenseur C_4'),
+        ('Ascenseur B_RDJ', 'Ascenseur B_0', 'Ascenseur B_1', 'Ascenseur B_2', 'Ascenseur B_3', 'Ascenseur B_4', 'Ascenseur B_5'),
+        ('Ascenseur D_RDJ', 'Ascenseur D_0', 'Ascenseur D_1', 'Ascenseur D_2', 'Ascenseur D_3', 'Ascenseur D_4', 'Ascenseur D_5'),
+        ('Ascenseur A_RDJ', 'Ascenseur A_0', 'Ascenseur A_1', 'Ascenseur A_2', 'Ascenseur A_3')
     ]
 
     for vertical_set in vertical_connections:
