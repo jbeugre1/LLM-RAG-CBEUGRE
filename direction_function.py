@@ -1,45 +1,38 @@
 import igraph as ig
-import gravis as gv
-import difflib
 
+# Création du graphe
+graph = ig.Graph(directed=False)
 
+# Dictionnaire pour mapper les noms de salles aux indices
+room_indices = {}
+current_index = 0
 
+# Fonction pour ajouter des salles et connexions avec directions
+def add_level_connections(level_name, rooms, directions, graph, room_indices, current_index):
+        previous_room = None
+        first_room = None
+        for i, room in enumerate(rooms):
+            if room not in room_indices:
+                room_indices[room] = current_index
+                graph.add_vertex(name=room)
+                current_index += 1
+            
+            if previous_room is not None:
+                direction = directions.get((previous_room, room), "unknown")
+                graph.add_edge(room_indices[previous_room], room_indices[room], type='simple_path', direction=direction)
+            else:
+                first_room = room
+            
+            previous_room = room
 
-def get_direction(start_room ,end_room):
-    # Création du graphe
-    graph = ig.Graph(directed=False)
+        # Connect the last room back to the first to form a circular connection
+        direction = directions.get((previous_room, first_room), "unknown")
+        graph.add_edge(room_indices[previous_room], room_indices[first_room], type='simple_path', direction=direction)
 
-    # Dictionnaire pour mapper les noms de salles aux indices
-    room_indices = {}
-    current_index = 0
-    
+        return current_index
 
-    # Fonction pour ajouter des salles et connexions
-    def add_level_connections(level_name, rooms, directions, graph, room_indices, current_index):
-            previous_room = None
-            first_room = None
-            for i, room in enumerate(rooms):
-                if room not in room_indices:
-                    room_indices[room] = current_index
-                    graph.add_vertex(name=room)
-                    current_index += 1
-                
-                if previous_room is not None:
-                    direction = directions.get((previous_room, room), "unknown")
-                    graph.add_edge(room_indices[previous_room], room_indices[room], type='simple_path', direction=direction)
-                else:
-                    first_room = room
-                
-                previous_room = room
-
-            # Connect the last room back to the first to form a circular connection
-            direction = directions.get((previous_room, first_room), "unknown")
-            graph.add_edge(room_indices[previous_room], room_indices[first_room], type='simple_path', direction=direction)
-
-            return current_index
-        
-        
-    level_directions = {
+# Directions for each pair of rooms (example directions, you should adjust as needed)
+level_directions = {
     
     'RDJ': {
         ('Cavally','Kouroukelé'):'gauche',
@@ -147,97 +140,58 @@ def get_direction(start_room ,end_room):
         ('Kouto','Ascenseur_D5'):'gauche puis droite',('Kouto','Espace_repo5_2'):'gauche',
         ('Espace_repo5_2','Kouto'):'rentré dans le batiment'
     }
-}    
+}
 
-    # Ajout des salles et connexions pour chaque niveau
-    levels = {
-        'RDJ': ['Cavally','Kouroukelé','Sassandra','Ascenseur_BRDJ','Bandama','Comoe','Entree_Principal','Soubre','Assini','Ascenseur_ARDJ','Adiaké','Aboisso','Bassam','Ayame','San_Pedro','Alepe','Ascenseur_CRDJ','Restaurant','Ascenseur_DRDJ','Ascenseur_BRDJ'],
-        '0': ['Acceuil', 'Ascenseur_B0', 'Kossou', 'Buyo', 'Niari', 'Ascenseur_C0', 'Toumodi', 'goal24', 'Ascenseur_D0', 'Bongouanou', 'Dimbokro', 'Tiassale', 'Ascenseur_A0', 'Acceuil'],
-        '1': ['Gagnoa', 'Ascenseur_B1', 'Daloa', 'Vavoua', 'Ascenseur_C1', 'Bondoukou', 'Man', 'Ascenseur_D1', 'Bouake', 'Danane', 'Zuenola', 'Ascenseur_A1', 'Yamoussoukro', 'Gagnoa'],
-        '2': ['Katiola', 'Ascenseur_B2', 'Tanda', 'Mankono', 'Ascenseur_C2', 'Kani', 'Seguela', 'Ascenseur_D2', 'Bassawa', 'Nassian', 'Bouna', 'Ascenseur_A2', 'Worofla', 'Katiola'],
-        '3': ['Espace_repo3','Ascenseur_B3', 'Gan', 'Bako', 'Ascenseur_C3', 'Borotou', 'Touba', 'Ascenseur_D3', 'Kanakono', 'Tienko','Odienné', 'Minignan', 'Ascenseur_A3','Espace_repo3'],
-        '4': ['Espace_repo4_1', 'PCA', 'Ascenseur_C4', 'Korhogo','Boundiali', 'Ascenseur_D4', 'Niélé', 'Espace_repo4_2'],
-        '5': ['Espace_repo5_1', 'Teheni', 'Ascenseur_C5', 'Tengrela', 'Ascenseur_D5', 'Kouto', 'Espace_repo5_2']
-    }
+# Ajout des salles et connexions pour chaque niveau
+levels = {
+    'RDJ': ['Cavally','Kouroukelé','Sassandra','Ascenseur_BRDJ','Bandama','Comoe','Entree_Principal','Soubre','Assini','Ascenseur_ARDJ','Adiaké','Aboisso','Bassam','Ayame','San_Pedro','Alepe','Ascenseur_CRDJ','Restaurant','Ascenseur_DRDJ','Ascenseur_BRDJ'],
+    '0': ['Acceuil', 'Ascenseur_B0', 'Kossou', 'Buyo', 'Niari', 'Ascenseur_C0', 'Toumodi', 'goal24', 'Ascenseur_D0', 'Bongouanou', 'Dimbokro', 'Tiassale', 'Ascenseur_A0', 'Acceuil'],
+    '1': ['Gagnoa', 'Ascenseur_B1', 'Daloa', 'Vavoua', 'Ascenseur_C1', 'Bondoukou', 'Man', 'Ascenseur_D1', 'Bouake', 'Danane', 'Zuenola', 'Ascenseur_A1', 'Yamoussoukro', 'Gagnoa'],
+    '2': ['Katiola', 'Ascenseur_B2', 'Tanda', 'Mankono', 'Ascenseur_C2', 'Kani', 'Seguela', 'Ascenseur_D2', 'Bassawa', 'Nassian', 'Bouna', 'Ascenseur_A2', 'Worofla', 'Katiola'],
+    '3': ['Espace_repo3','Ascenseur_B3', 'Gan', 'Bako', 'Ascenseur_C3', 'Borotou', 'Touba', 'Ascenseur_D3', 'Kanakono', 'Tienko','Odienné', 'Minignan', 'Ascenseur_A3','Espace_repo3'],
+    '4': ['Espace_repo4_1', 'PCA', 'Ascenseur_C4', 'Korhogo','Boundiali', 'Ascenseur_D4', 'Niélé', 'Espace_repo4_2'],
+    '5': ['Espace_repo5_1', 'Teheni', 'Ascenseur_C5', 'Tengrela', 'Ascenseur_D5', 'Kouto', 'Espace_repo5_2']
+}
 
-    for level, rooms in levels.items():
-        directions = level_directions[level]
-        current_index = add_level_connections(level, rooms, directions, graph, room_indices, current_index)
+for level, rooms in levels.items():
+    directions = level_directions[level]
+    current_index = add_level_connections(level, rooms, directions, graph, room_indices, current_index)
 
+# Ajout des connexions verticales (ascenseurs) avec directions
+vertical_connections = [
+    ('Ascenseur_CRDJ', 'Ascenseur_C0', 'Ascenseur_C1', 'Ascenseur_C2', 'Ascenseur_C3', 'Ascenseur_C4','Ascenseur_C5'),
+    ('Ascenseur_BRDJ', 'Ascenseur_B0', 'Ascenseur_B1', 'Ascenseur_B2', 'Ascenseur_B3'), 
+    ('Ascenseur_DRDJ', 'Ascenseur_D0', 'Ascenseur_D1', 'Ascenseur_D2', 'Ascenseur_D3', 'Ascenseur_D4', 'Ascenseur_D5'),
+    ('Ascenseur_ARDJ', 'Ascenseur_A0', 'Ascenseur_A1', 'Ascenseur_A2', 'Ascenseur_A3')
+]
 
-    # Ajout des connexions verticales (ascenseurs)
-    vertical_connections = [
-        ('Ascenseur_CRDJ', 'Ascenseur_C0', 'Ascenseur_C1', 'Ascenseur_C2', 'Ascenseur_C3', 'Ascenseur_C4','Ascenseur_C5'),
-        ('Ascenseur_BRDJ', 'Ascenseur_B0', 'Ascenseur_B1', 'Ascenseur_B2', 'Ascenseur_B3'), 
-        ('Ascenseur_DRDJ', 'Ascenseur_D0', 'Ascenseur_D1', 'Ascenseur_D2', 'Ascenseur_D3', 'Ascenseur_D4', 'Ascenseur_D5'),
-        ('Ascenseur_ARDJ', 'Ascenseur_A0', 'Ascenseur_A1', 'Ascenseur_A2', 'Ascenseur_A3')
-    ]
+vertical_directions = [
+    ['up', 'up', 'up', 'up', 'up', 'up'],
+    ['up', 'up', 'up', 'up'],
+    ['up', 'up', 'up', 'up', 'up', 'up'],
+    ['up', 'up', 'up', 'up']
+]
 
-    vertical_directions = [
-        ['up', 'up', 'up', 'up', 'up', 'up'],
-        ['up', 'up', 'up', 'up'],
-        ['up', 'up', 'up', 'up', 'up', 'up'],
-        ['up', 'up', 'up', 'up']
-    ]
-
-    for vertical_set, directions in zip(vertical_connections, vertical_directions):
-        for i in range(min(len(vertical_set) - 1, len(directions))):
-            if vertical_set[i] in room_indices and vertical_set[i + 1] in room_indices:
-                graph.add_edge(room_indices[vertical_set[i]], room_indices[vertical_set[i + 1]], type='elevator', direction=directions[i])
-            else:
-                print(f"Missing room: {vertical_set[i]} or {vertical_set[i + 1]}")
-
-        # Function to find the closest match for a room name
-    def get_closest_room(room_name, room_indices):
-        
-        closest_matches = difflib.get_close_matches(room_name, room_indices.keys(), n=1, cutoff=0.6)
-        if closest_matches:
-            return closest_matches[0]
+for vertical_set, directions in zip(vertical_connections, vertical_directions):
+    for i in range(min(len(vertical_set) - 1, len(directions))):
+        if vertical_set[i] in room_indices and vertical_set[i + 1] in room_indices:
+            graph.add_edge(room_indices[vertical_set[i]], room_indices[vertical_set[i + 1]], type='elevator', direction=directions[i])
         else:
-            return None
+            print(f"Missing room: {vertical_set[i]} or {vertical_set[i + 1]}")
 
-    # Use fuzzy matching to correct room names
-    start_room_corrected = get_closest_room(start_room, room_indices)
-    end_room_corrected = get_closest_room(end_room, room_indices)
+start_room = 'Comoe'
+end_room = 'Assini'
+shortest_path = graph.get_shortest_paths(room_indices[start_room], to=room_indices[end_room], output='vpath')
 
-    if not start_room_corrected or not end_room_corrected:
-        return f"Unable to find rooms matching '{start_room}' or '{end_room}'."
+# Affichage du chemin le plus court avec directions
+print(f"Le chemin le plus court entre {start_room} et {end_room} est :")
 
-    
-    # Get the shortest path between the start and end rooms
-    shortest_path = graph.get_shortest_paths(room_indices[start_room_corrected], to=room_indices[end_room_corrected], output='vpath')
-
-    if not shortest_path[0]:
-        return None  # Return None if no path is found
-
-    # Prepare the string for the shortest path with directions
-    path_with_directions = ""
-
-    for i in range(len(shortest_path[0]) - 1):
-        src_index = shortest_path[0][i]
-        tgt_index = shortest_path[0][i + 1]
-        src = graph.vs[src_index]['name']
-        tgt = graph.vs[tgt_index]['name']
-        edge = graph.es.find(_source=src_index, _target=tgt_index)
-        direction = edge['direction']
-        path_with_directions += f"{src} -> {direction} -> "
-
-    # Add the final room without direction
-    path_with_directions += graph.vs[shortest_path[0][-1]]['name']
-    
-    return path_with_directions
-    
-    #return shortest
-  
-
-
-
-
-
-
-    
-    
-    
-
-
+for i in range(len(shortest_path[0]) - 1):
+    src_index = shortest_path[0][i]
+    tgt_index = shortest_path[0][i + 1]
+    src = graph.vs[src_index]['name']
+    tgt = graph.vs[tgt_index]['name']
+    edge = graph.es.find(_source=src_index, _target=tgt_index)
+    direction = edge['direction']
+    print(f"{src} -> {direction} -> {tgt}")
     

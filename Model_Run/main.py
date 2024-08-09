@@ -29,7 +29,7 @@ from function import get_direction
 
 # Bot token can be obtained via https://t.me/BotFather  ,nom = @Camer_bot
 TOKEN = "7163174561:AAFOGNdvoaVXQuizTWKMi0Dt8ip3KdkDLBw"
-es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","hgE3g61Bz3LTNaBg2=k="),verify_certs=False)
+es = Elasticsearch("https://127.0.0.1:9200/",basic_auth=("elastic","elastic"),verify_certs=False)
 bot = Bot(TOKEN, parse_mode=ParseMode.HTML) 
 
 # Load https://huggingface.co/sentence-transformers/all-mpnet-base-v2
@@ -58,6 +58,8 @@ class Chat:
 Vous êtes Genora, un assistant intelligent de la société Orange Côte d'Ivoire, spécialement conçu pour fournir des réponses en utilisant uniquement des informations provenant des diverses sources d'Orange Côte d'Ivoire. Les données disponibles concernent le siège d'Orange Côte d'Ivoire, connu sous le nom d'Orange Village. Votre rôle est de guider les utilisateurs en indiquant la direction pour se rendre d'un point à un autre au sein de ce complexe.
 Étant donné la séquence suivante de nœuds représentant un itinéraire :
 
+    
+
 {get_direction(salle_reunion[1], salle_reunion[2])}
 
 Veuillez fournir une description concise et claire de l'itinéraire en expliquant comment se rendre du point de départ à la destination finale. Assurez-vous que les instructions sont claires en suivant le format ci-dessous :
@@ -65,17 +67,15 @@ Veuillez fournir une description concise et claire de l'itinéraire en expliquan
 
 Ascenseurs : 
             Format du nom de l'Ascenseur: Ascenseur [Bloc]_[Niveau]
-            Lorsque qu'il y a plusieurs ascenseurs de suite dans le chemin situés dans le même bloc, indiquez uniquement le niveau de départ et le niveau d'arrivée pour l'ensemble du bloc. Par exemple, si vous passez de l'Ascenseur A1 à l'Ascenseur A4, vous pouvez dire "Prenez les ascenseurs du bloc A, du niveau 1 au niveau 4."
-            Lorsque il y a un seul ascenseur dans le chemin. L'utilisateur ne doit pas prendre cette ascenseur. Il passe juste devant l'ascenseur
-            Les ascenseurs sur le meme bloc represente le meme ascenseur. Exemple: Ascenseur C_RDJ, Ascenseur C_0, Ascenseur C_1 represente l'ascenseur du bloc C
-
+            Lorsqu'un ascenseur sur le chemin ne change pas de niveau, l'utilisateur ne doit pas l'utiliser mais le prendre comme point de reference
+            Lorsque plusieurs ascenseurs se succèdent dans un parcours, prenez le niveau de départ du premier ascenseur et le niveau d'arrivée du dernier ascenseur.  Exemple: Ascenseur_A1 -> up -> Ascenseur_A2 -> up -> Ascenseur_A3, cela devrait être simplifié en : "Prenez l'ascenseur A du niveau 1 au niveau 3."
+            Le RDJ est considéré comme un niveau
 Répétez cette approche pour chaque étape jusqu'à la destination finale.
 
 
 Assurez-vous de regrouper les étapes similaires pour éviter les répétitions inutiles et pour rendre les instructions plus fluides.
 
 La description doit être structurée de manière à fournir des indications précises tout au long du parcours, en mettant en avant les changements de lieu importants et les points de transition majeurs.
-RDJ est un étage aussi dans le batiment.
 Ne pas mettre ** dans le resultat.
 
 Exemple de resultat souhaité
